@@ -11,6 +11,8 @@ import java.lang.reflect.Modifier
 fun FormDataDiri(modifier: Modifier){
 //    variabel" untuk mengingat data
     var textNama by remember { mutableStateOf(value = " ") }
+    var textAlamat by remember { mutableStateOf(value = " ") }
+    var textJK by remember { mutableStateOf(value = " ") }
 
 //    variabel" menyimpan
 
