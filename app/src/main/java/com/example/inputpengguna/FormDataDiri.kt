@@ -64,7 +64,7 @@ fun FormDataDiri(modifier: Modifier){
             value = textAlamat,
             singleLine = true,
             modifier = Modifier
-                .width(width = 250.dp),
+                .width(width = 350.dp),
             label = { Text(text = "Alamat Lengkap") },
             onValueChange = {
                 textAlamat = it
