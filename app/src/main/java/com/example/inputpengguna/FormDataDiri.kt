@@ -1,9 +1,12 @@
 package com.example.inputpengguna
 
+import androidx.compose.foundation.background
 import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,7 +26,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -41,9 +46,23 @@ fun FormDataDiri(modifier: Modifier){
     var JK by remember { mutableStateOf(value = " ") }
 
     val gender:List<String> = listOf("Laki-laki","Perempuan")
+    Box(
+        modifier = Modifier
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0x80A1BA), // biru muda di atas
+                        Color(0xFF1976D2)  // biru tua di bawah
+                    )
+                )
+            )   // 👈 Ganti warna background layar di sini
+            .padding(16.dp)
+            .fillMaxSize())
 
-    Column(modifier = Modifier.padding(top=90.dp),
+    Column(modifier = Modifier
+        .padding(top=90.dp),
         verticalArrangement = Arrangement.Top,
+
         horizontalAlignment = Alignment.CenterHorizontally) {
         OutlinedTextField(
             value = textNama,
@@ -112,12 +131,12 @@ fun FormDataDiri(modifier: Modifier){
             colors = CardDefaults.cardColors(containerColor = Color.Black),
             modifier = Modifier
                 .height(100.dp)
-                .width(300.dp)
+                .width(350.dp)
         ) {
             Column(
                 modifier = Modifier
                     .padding(
-                        horizontal = 5.dp,
+                        horizontal = 10.dp,
                         vertical = 15.dp)
             ) {
                 Text(text = "Nama : $Nama", color = Color.White)
