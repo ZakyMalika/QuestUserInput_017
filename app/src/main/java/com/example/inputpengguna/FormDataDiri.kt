@@ -33,14 +33,14 @@ fun FormDataDiri(modifier: Modifier){
 
     val gender:List<String> = listOf("Laki-laki","Perempuan")
 
-    Column(modifier = Modifier.padding(top=50.dp),
+    Column(modifier = Modifier.padding(top=90.dp, start = 30.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
         OutlinedTextField(
             value = textNama,
             singleLine = true,
             shape = MaterialTheme.shapes.large,
-            modifier = Modifier.width(width = 250.dp),
+            modifier = Modifier.width(width = 350.dp),
             label = {Text(text = "Nama Lengkap")},
             onValueChange = {textNama = it}
         )
@@ -59,6 +59,7 @@ fun FormDataDiri(modifier: Modifier){
                     Text(item)
                 }
             }
+            Column {  }
         }
     }
 }
