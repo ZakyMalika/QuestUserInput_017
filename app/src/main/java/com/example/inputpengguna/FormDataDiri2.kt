@@ -1,240 +1,208 @@
 package com.example.inputpengguna
 
-import android.R.attr.checked
-import android.icu.util.Calendar
+import android.app.DatePickerDialog
+import java.util.Calendar
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import android.app.DatePickerDialog
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.VerticalDivider
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.res.dimensionResource
 
 @Composable
-//kalau bisa ceklis baru bisa di submit,
-//pake selctedDate untuk tanggal,
-//semuanya di dalam variabel(+- 10 lebih variabel),
-//pake verticaldefider,
-//umur menggunakan scrolling,
-//pake boolen untuk check box,(soalnya true or false),
-//NILAI TAMBAH: kalau bisa menampilkan pop up hasil datanya
-fun datadiri(modifier: Modifier){
-    var textNama by remember { mutableStateOf(value = " ") }
-    var textAlamat by remember { mutableStateOf(value = " ") }
-    var textTanggal by remember { mutableStateOf(value = " ") }
-    var textRT by remember { mutableStateOf(value = " ") }
-    var textRW by remember { mutableStateOf(value = " ") }
-    var textUmur by remember { mutableStateOf(value = " ") }
-    var textJK by remember { mutableStateOf(value = " ") }
+fun datadiri(modifier: Modifier) {
 
-//    variabel" menyimpan
-    var Nama by remember { mutableStateOf(value = " ") }
-    var Alamat by remember { mutableStateOf(value = " ") }
-    var Tanggal by remember { mutableStateOf(value = " ") }
-    var RT by remember { mutableStateOf(value = " ") }
-    var RW by remember { mutableStateOf(value = " ") }
-    var Umur by remember { mutableStateOf(value = " ") }
-    var JK by remember { mutableStateOf(value = " ") }
+    var textNama by remember { mutableStateOf("") }
+    var textAlamat by remember { mutableStateOf("") }
+    var textTanggal by remember { mutableStateOf("") }
+    var textRT by remember { mutableStateOf("") }
+    var textRW by remember { mutableStateOf("") }
+    var textUmur by remember { mutableStateOf("") }
+    var textJK by remember { mutableStateOf("") }
 
+    // variabel untuk menyimpan hasil
+    var Nama by remember { mutableStateOf("") }
+    var Alamat by remember { mutableStateOf("") }
+    var Tanggal by remember { mutableStateOf("") }
+    var RT by remember { mutableStateOf("") }
+    var RW by remember { mutableStateOf("") }
+    var Umur by remember { mutableStateOf("") }
+    var JK by remember { mutableStateOf("") }
 
     var checked by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) } // TAMBAHAN: untuk kontrol pop-up
 
-    val gender:List<String> = listOf("Laki-laki","Perempuan")
+    val gender: List<String> = listOf("Laki-laki", "Perempuan")
     val context = LocalContext.current
+
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-    val selectedDate = remember { mutableStateOf("") }
+    // buat date picker
+    val datePickerDialog = remember {
+        DatePickerDialog(
+            context,
+            { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                val pickedDate = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+                textTanggal = pickedDate
+            },
+            year, month, day
+        )
+    }
 
-    val datePickerDialog = DatePickerDialog(
-        context,
-        { _, selectedYear, selectedMonth, selectedDayOfMonth ->
-            val pickedDate = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
-            selectedDate.value = pickedDate
-        },
-        year,
-        month,
-        day
-    )
-
-    Column(modifier = Modifier
-        .padding(top = 70.dp),
+    Column(
+        modifier = Modifier.padding(top = 70.dp),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = stringResource(id = R.string.regis),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = R.string.regis),
             fontSize = 35.sp,
             color = Color.Black
         )
+
         OutlinedTextField(
             value = textNama,
             singleLine = true,
             shape = MaterialTheme.shapes.large,
-            modifier = Modifier.width(width = 350.dp)
+            modifier = Modifier
+                .width(350.dp)
                 .padding(top = 30.dp, start = 30.dp),
-            label = {Text(text = "Nama Lengkap")},
-            onValueChange = {textNama = it}
+            label = { Text(text = "Nama Lengkap") },
+            onValueChange = { textNama = it }
         )
 
-//        alamat
         OutlinedTextField(
             value = textAlamat,
             singleLine = true,
             shape = MaterialTheme.shapes.large,
             modifier = Modifier
-                .width(width = 350.dp)
-                .height(height = 100.dp)
+                .width(350.dp)
+                .height(100.dp)
                 .padding(top = 30.dp, start = 30.dp),
             label = { Text(text = "Kota Asal") },
-            onValueChange = {
-                textAlamat = it
-            }
+            onValueChange = { textAlamat = it }
         )
 
-
-        Row(modifier = Modifier) {
-            //        tanggal
+        Row {
+            // TextField tanggal make clickable yang udah betul
             OutlinedTextField(
-                value = selectedDate.value,
+                value = textTanggal,
                 onValueChange = { },
                 label = { Text("Tanggal Lahir") },
                 readOnly = true,
-                modifier = Modifier
-                    .width(100.dp)
-                    .height(100.dp)
-                    .padding(top = 30.dp)
-                    .clickable { datePickerDialog.show() },
                 singleLine = true,
                 trailingIcon = {
-                    Icon(imageVector = Icons.Default.DateRange, contentDescription = "Pilih tanggal")
-                }
+                    IconButton(onClick = { datePickerDialog.show() }) {
+                        Icon(
+                            imageVector = Icons.Default.DateRange,
+                            contentDescription = "Pilih tanggal"
+                        )
+                    }
+                },
+                modifier = Modifier
+                    .width(120.dp)
+                    .height(100.dp)
+                    .padding(top = 30.dp)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) {
+                        datePickerDialog.show()
+                    }
             )
-//            RT
+
+            // rt
             OutlinedTextField(
                 value = textRT,
                 singleLine = true,
                 modifier = Modifier
-                    .width(width = 100.dp)
-                    .height(height = 100.dp)
+                    .width(100.dp)
+                    .height(100.dp)
                     .padding(top = 30.dp, start = 30.dp),
                 label = { Text(text = "RT") },
-                onValueChange = {
-                    textRT = it
-                }
+                onValueChange = { textRT = it }
             )
 
-            Spacer(modifier = Modifier.width(width = 20.dp))
+            Spacer(modifier = Modifier.width(20.dp))
 
             VerticalDivider(
                 modifier = Modifier
-                    .height(height = 120.dp)
+                    .height(120.dp)
                     .padding(
-                    bottom = dimensionResource(id = R.dimen.pad_med),
-                    top = dimensionResource(id = R.dimen.pad_med),
-                ),
+                        bottom = dimensionResource(id = R.dimen.pad_med),
+                        top = dimensionResource(id = R.dimen.pad_med),
+                    ),
                 thickness = dimensionResource(id = R.dimen.pad_tipis),
                 color = Color.DarkGray,
-
             )
-//            RW
+
+            // rw
             OutlinedTextField(
                 value = textRW,
                 singleLine = true,
                 modifier = Modifier
-                    .width(width = 100.dp)
-                    .height(height = 100.dp)
+                    .width(100.dp)
+                    .height(100.dp)
                     .padding(top = 30.dp, start = 30.dp),
                 label = { Text(text = "RW") },
-                onValueChange = {
-                    textRW = it
-                }
+                onValueChange = { textRW = it }
             )
-
-
-
         }
 
-//            UMUR
         OutlinedTextField(
             value = textUmur,
             singleLine = true,
             shape = MaterialTheme.shapes.large,
             modifier = Modifier
-                .width(width = 350.dp)
-                .height(height = 100.dp)
+                .width(350.dp)
+                .height(100.dp)
                 .padding(top = 30.dp, start = 30.dp),
             label = { Text(text = "Umur") },
-            onValueChange = {
-                textUmur = it
-            }
+            onValueChange = { textUmur = it }
         )
 
-//        tinggi spacer
-        Spacer(modifier = Modifier.height(height = 20.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-//        text untuk memanggil jenis kelamin
-        Text(text = stringResource(id = R.string.jk),
+        Text(
+            text = stringResource(id = R.string.jk),
             fontSize = 15.sp,
             color = Color.Black,
-            modifier = Modifier
-                .padding(start = 20.dp)
+            modifier = Modifier.padding(start = 20.dp)
         )
 
-//        radio button jenis kelamin
         Row {
             gender.forEach { item ->
-                Row(modifier = Modifier.selectable(
-                    selected = textJK == item,
-                    onClick = {textJK=item}
-                ), verticalAlignment = Alignment.CenterVertically){
-                    RadioButton(
+                Row(
+                    modifier = Modifier.selectable(
                         selected = textJK == item,
-                        onClick = {
-                            textJK = item
-                        }
-                    )
+                        onClick = { textJK = item }
+                    ),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    RadioButton(selected = textJK == item, onClick = { textJK = item })
                     Text(item)
                 }
             }
         }
 
-//        membuat row
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(top = 30.dp, start = 30.dp)
+            modifier = Modifier.padding(top = 30.dp, start = 30.dp)
         ) {
-//            membuat checkbox
             Checkbox(
                 checked = checked,
                 onCheckedChange = { checked = it },
@@ -245,15 +213,15 @@ fun datadiri(modifier: Modifier){
                 )
             )
 
-//            text ketentuan
-            Text(text = stringResource(id = R.string.cek),
-            )
+            Text(text = stringResource(id = R.string.cek))
         }
 
-//        button
+        Spacer(modifier = Modifier.height(50.dp))
+
+
         Button(
-            modifier = Modifier.fillMaxWidth( ),
-            enabled = textAlamat.isNotEmpty(),
+            modifier = Modifier.width(250.dp),
+            enabled = textNama.isNotEmpty() && checked,
             onClick = {
                 Nama = textNama
                 Alamat = textAlamat
@@ -262,12 +230,106 @@ fun datadiri(modifier: Modifier){
                 RT = textRT
                 RW = textRW
                 Umur = textUmur
+                showDialog = true // untk menampilkan dialog
             }
         ) {
             Text(text = stringResource(id = R.string.submit))
         }
 
+//        membuat alert
+        if (showDialog) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                title = {
+                    Text(
+                        text = "Data Registrasi",
+                        fontSize = 22.sp,
+                        color = Color(0xFF3F51B5)
+                    )
+                },
+                text = {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp)
+                    ) {
+                        Text(
+                            text = "Nama Lengkap:",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = Nama,
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
 
+                        Text(
+                            text = "Kota Asal:",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = Alamat,
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
 
+                        Text(
+                            text = "Tanggal Lahir:",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = Tanggal,
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
+
+                        Text(
+                            text = "RT / RW:",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = "$RT / $RW",
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
+
+                        Text(
+                            text = "Umur:",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = "$Umur tahun",
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
+
+                        Text(
+                            text = "Jenis Kelamin:",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = JK,
+                            fontSize = 16.sp
+                        )
+                    }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = { showDialog = false },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF3F51B5)
+                        )
+                    ) {
+                        Text("OK")
+                    }
+                }
+            )
+        }
     }
 }
