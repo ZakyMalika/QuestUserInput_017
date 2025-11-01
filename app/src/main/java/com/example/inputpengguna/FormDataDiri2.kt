@@ -2,6 +2,7 @@ package com.example.inputpengguna
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -59,9 +60,21 @@ fun datadiri(modifier: Modifier){
             singleLine = true,
             shape = MaterialTheme.shapes.large,
             modifier = Modifier.width(width = 350.dp)
-                .padding(top = 30.dp),
+                .padding(top = 30.dp, start = 30.dp),
             label = {Text(text = "Nama Lengkap")},
             onValueChange = {textNama = it}
+        )
+        OutlinedTextField(
+            value = textAlamat,
+            singleLine = true,
+            modifier = Modifier
+                .width(width = 350.dp)
+                .height(height = 100.dp)
+                .padding(top = 30.dp, start = 30.dp),
+            label = { Text(text = "Kota Asal") },
+            onValueChange = {
+                textAlamat = it
+            }
         )
 
 
