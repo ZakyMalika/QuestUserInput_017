@@ -1,10 +1,15 @@
 package com.example.inputpengguna
 
+import android.icu.util.Calendar
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -16,15 +21,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.app.DatePickerDialog
+import androidx.compose.foundation.layout.Row
 
 @Composable
 //kalau bisa ceklis baru bisa di submit,
 //pake selctedDate untuk tanggal,
 //semuanya di dalam variabel(+- 10 lebih variabel),
-//pake defider,
+//pake verticaldefider,
 //umur menggunakan scrolling,
 //pake boolen untuk check box,(soalnya true or false),
 //NILAI TAMBAH: kalau bisa menampilkan pop up hasil datanya
@@ -45,7 +53,24 @@ fun datadiri(modifier: Modifier){
     var JK by remember { mutableStateOf(value = " ") }
 
     val gender:List<String> = listOf("Laki-laki","Perempuan")
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
+    val year = calendar.get(Calendar.YEAR)
+    val month = calendar.get(Calendar.MONTH)
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+    val selectedDate = remember { mutableStateOf("") }
+
+    val datePickerDialog = DatePickerDialog(
+        context,
+        { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+            val pickedDate = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+            selectedDate.value = pickedDate
+        },
+        year,
+        month,
+        day
+    )
 
     Column(modifier = Modifier
         .padding(top = 70.dp),
@@ -64,6 +89,8 @@ fun datadiri(modifier: Modifier){
             label = {Text(text = "Nama Lengkap")},
             onValueChange = {textNama = it}
         )
+
+//        alamat
         OutlinedTextField(
             value = textAlamat,
             singleLine = true,
@@ -76,6 +103,29 @@ fun datadiri(modifier: Modifier){
                 textAlamat = it
             }
         )
+
+
+        Row(modifier = Modifier) {
+            //        tanggal
+            OutlinedTextField(
+                value = selectedDate.value,
+                onValueChange = { },
+                label = { Text("Tanggal Lahir") },
+                readOnly = true,
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(100.dp)
+                    .padding(top = 30.dp)
+                    .clickable { datePickerDialog.show() },
+                singleLine = true,
+                trailingIcon = {
+                    Icon(imageVector = Icons.Default.DateRange, contentDescription = "Pilih tanggal")
+                }
+            )
+
+
+
+        }
 
 
     }
