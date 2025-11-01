@@ -29,7 +29,9 @@ import androidx.compose.ui.unit.sp
 import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.RadioButton
@@ -246,6 +248,23 @@ fun datadiri(modifier: Modifier){
 //            text ketentuan
             Text(text = stringResource(id = R.string.cek),
             )
+        }
+
+//        button
+        Button(
+            modifier = Modifier.fillMaxWidth( ),
+            enabled = textAlamat.isNotEmpty(),
+            onClick = {
+                Nama = textNama
+                Alamat = textAlamat
+                JK = textJK
+                Tanggal = textTanggal
+                RT = textRT
+                RW = textRW
+                Umur = textUmur
+            }
+        ) {
+            Text(text = stringResource(id = R.string.submit))
         }
 
 
