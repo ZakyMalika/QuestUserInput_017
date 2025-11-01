@@ -1,5 +1,6 @@
 package com.example.inputpengguna
 
+import android.R.attr.checked
 import android.icu.util.Calendar
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,9 +30,11 @@ import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.VerticalDivider
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.dimensionResource
 
 @Composable
@@ -49,7 +52,6 @@ fun datadiri(modifier: Modifier){
     var textRT by remember { mutableStateOf(value = " ") }
     var textRW by remember { mutableStateOf(value = " ") }
     var textUmur by remember { mutableStateOf(value = " ") }
-
     var textJK by remember { mutableStateOf(value = " ") }
 
 //    variabel" menyimpan
@@ -60,6 +62,9 @@ fun datadiri(modifier: Modifier){
     var RW by remember { mutableStateOf(value = " ") }
     var Umur by remember { mutableStateOf(value = " ") }
     var JK by remember { mutableStateOf(value = " ") }
+
+
+    var checked by remember { mutableStateOf(false) }
 
     val gender:List<String> = listOf("Laki-laki","Perempuan")
     val context = LocalContext.current
@@ -219,6 +224,28 @@ fun datadiri(modifier: Modifier){
                     Text(item)
                 }
             }
+        }
+
+//        membuat row
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(top = 30.dp, start = 30.dp)
+        ) {
+//            membuat checkbox
+            Checkbox(
+                checked = checked,
+                onCheckedChange = { checked = it },
+                modifier = Modifier.scale(1.3f),
+                colors = CheckboxDefaults.colors(
+                    checkedColor = Color(0xFF3F51B5),
+                    uncheckedColor = Color.Gray
+                )
+            )
+
+//            text ketentuan
+            Text(text = stringResource(id = R.string.cek),
+            )
         }
 
 
