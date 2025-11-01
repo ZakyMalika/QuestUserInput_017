@@ -46,6 +46,8 @@ fun datadiri(modifier: Modifier){
     var textTanggal by remember { mutableStateOf(value = " ") }
     var textRT by remember { mutableStateOf(value = " ") }
     var textRW by remember { mutableStateOf(value = " ") }
+    var textUmur by remember { mutableStateOf(value = " ") }
+
     var textJK by remember { mutableStateOf(value = " ") }
 
 //    variabel" menyimpan
@@ -54,6 +56,7 @@ fun datadiri(modifier: Modifier){
     var Tanggal by remember { mutableStateOf(value = " ") }
     var RT by remember { mutableStateOf(value = " ") }
     var RW by remember { mutableStateOf(value = " ") }
+    var Umur by remember { mutableStateOf(value = " ") }
     var JK by remember { mutableStateOf(value = " ") }
 
     val gender:List<String> = listOf("Laki-laki","Perempuan")
@@ -153,7 +156,19 @@ fun datadiri(modifier: Modifier){
                 color = Color.DarkGray,
 
             )
-
+//            RW
+            OutlinedTextField(
+                value = textRW,
+                singleLine = true,
+                modifier = Modifier
+                    .width(width = 100.dp)
+                    .height(height = 100.dp)
+                    .padding(top = 30.dp, start = 30.dp),
+                label = { Text(text = "RW") },
+                onValueChange = {
+                    textRW = it
+                }
+            )
 
 
         }
