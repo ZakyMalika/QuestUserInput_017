@@ -28,7 +28,9 @@ import androidx.compose.ui.unit.sp
 import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.ui.res.dimensionResource
 
@@ -190,13 +192,36 @@ fun datadiri(modifier: Modifier){
             }
         )
 
+//        tinggi spacer
         Spacer(modifier = Modifier.height(height = 20.dp))
 
+//        text untuk memanggil jenis kelamin
         Text(text = stringResource(id = R.string.jk),
             fontSize = 15.sp,
             color = Color.Black,
             modifier = Modifier
                 .padding(start = 20.dp)
         )
+
+//        radio button jenis kelamin
+        Row {
+            gender.forEach { item ->
+                Row(modifier = Modifier.selectable(
+                    selected = textJK == item,
+                    onClick = {textJK=item}
+                ), verticalAlignment = Alignment.CenterVertically){
+                    RadioButton(
+                        selected = textJK == item,
+                        onClick = {
+                            textJK = item
+                        }
+                    )
+                    Text(item)
+                }
+            }
+        }
+
+
+
     }
 }
