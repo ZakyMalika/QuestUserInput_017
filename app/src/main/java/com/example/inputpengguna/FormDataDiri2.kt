@@ -59,6 +59,18 @@ fun datadiri(modifier: Modifier){
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+    val selectedDate = remember { mutableStateOf("") }
+
+    val datePickerDialog = DatePickerDialog(
+        context,
+        { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+            val pickedDate = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+            selectedDate.value = pickedDate
+        },
+        year,
+        month,
+        day
+    )
 
     Column(modifier = Modifier
         .padding(top = 70.dp),
