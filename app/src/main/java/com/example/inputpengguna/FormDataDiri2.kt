@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.VerticalDivider
+import androidx.compose.ui.res.dimensionResource
 
 @Composable
 //kalau bisa ceklis baru bisa di submit,
@@ -134,6 +137,18 @@ fun datadiri(modifier: Modifier){
                 onValueChange = {
                     textRT = it
                 }
+            )
+
+            VerticalDivider(
+                modifier = Modifier
+                    .height(height = 120.dp)
+                    .padding(
+                    bottom = dimensionResource(id = R.dimen.pad_med),
+                    top = dimensionResource(id = R.dimen.pad_med),
+                ),
+                thickness = dimensionResource(id = R.dimen.pad_tipis),
+                color = Color.DarkGray,
+
             )
 
 
