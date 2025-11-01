@@ -190,6 +190,8 @@ fun datadiri(modifier: Modifier){
             }
         )
 
+        Spacer(modifier = Modifier.height(height = 20.dp))
+
         Text(text = stringResource(id = R.string.jk),
             fontSize = 15.sp,
             color = Color.Black,
