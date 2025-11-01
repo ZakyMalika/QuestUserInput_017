@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.ui.res.dimensionResource
@@ -138,6 +139,8 @@ fun datadiri(modifier: Modifier){
                     textRT = it
                 }
             )
+
+            Spacer(modifier = Modifier.width(width = 20.dp))
 
             VerticalDivider(
                 modifier = Modifier
