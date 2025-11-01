@@ -172,7 +172,9 @@ fun datadiri(modifier: Modifier){
             )
 
 
+
         }
+
 //            UMUR
         OutlinedTextField(
             value = textUmur,
@@ -188,5 +190,11 @@ fun datadiri(modifier: Modifier){
             }
         )
 
+        Text(text = stringResource(id = R.string.jk),
+            fontSize = 15.sp,
+            color = Color.Black,
+            modifier = Modifier
+                .padding(start = 20.dp)
+        )
     }
 }
