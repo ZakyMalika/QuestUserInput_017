@@ -101,6 +101,7 @@ fun datadiri(modifier: Modifier){
         OutlinedTextField(
             value = textAlamat,
             singleLine = true,
+            shape = MaterialTheme.shapes.large,
             modifier = Modifier
                 .width(width = 350.dp)
                 .height(height = 100.dp)
@@ -172,7 +173,20 @@ fun datadiri(modifier: Modifier){
 
 
         }
-
+//            UMUR
+        OutlinedTextField(
+            value = textUmur,
+            singleLine = true,
+            shape = MaterialTheme.shapes.large,
+            modifier = Modifier
+                .width(width = 350.dp)
+                .height(height = 100.dp)
+                .padding(top = 30.dp, start = 30.dp),
+            label = { Text(text = "Umur") },
+            onValueChange = {
+                textUmur = it
+            }
+        )
 
     }
 }
