@@ -54,7 +54,15 @@ fun datadiri(modifier: Modifier){
             fontSize = 35.sp,
             color = Color.Black
         )
-
+        OutlinedTextField(
+            value = textNama,
+            singleLine = true,
+            shape = MaterialTheme.shapes.large,
+            modifier = Modifier.width(width = 350.dp)
+                .padding(top = 30.dp),
+            label = {Text(text = "Nama Lengkap")},
+            onValueChange = {textNama = it}
+        )
 
 
     }
