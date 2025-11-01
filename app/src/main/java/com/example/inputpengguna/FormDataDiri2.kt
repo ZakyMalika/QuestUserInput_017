@@ -122,6 +122,19 @@ fun datadiri(modifier: Modifier){
                     Icon(imageVector = Icons.Default.DateRange, contentDescription = "Pilih tanggal")
                 }
             )
+//            RT
+            OutlinedTextField(
+                value = textRT,
+                singleLine = true,
+                modifier = Modifier
+                    .width(width = 100.dp)
+                    .height(height = 100.dp)
+                    .padding(top = 30.dp, start = 30.dp),
+                label = { Text(text = "RT") },
+                onValueChange = {
+                    textRT = it
+                }
+            )
 
 
 
